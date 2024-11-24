@@ -8,8 +8,7 @@ import 'main_scaffold.dart';
 import 'screens/requests_screen.dart';
 import 'screens/carpool_request_screen.dart';
 import 'screens/carpool_requests_screen.dart';
-import 'screens/carpool_chat_screen.dart';
-
+import 'screens/chat_screen.dart';
 
 final Map<String, WidgetBuilder> appRoutes = {
   '/': (context) => const MainScaffold(),
@@ -19,5 +18,16 @@ final Map<String, WidgetBuilder> appRoutes = {
   '/buddyRequest': (context) => const BuddyRequestScreen(),
   '/requests': (context) => const RequestsScreen(),
   '/carpoolRequest': (context) => const CarpoolRequestScreen(),
-   '/carpoolRequests': (context) => const CarpoolRequestsScreen(),
+  '/carpoolRequests': (context) => const CarpoolRequestsScreen(),
 };
+
+// Use onGenerateRoute for dynamic routing.
+Route<dynamic>? onGenerateRoute(RouteSettings settings) {
+  if (settings.name == '/chatscreen') {
+    final args = settings.arguments as Map<String, String>;
+    return MaterialPageRoute(
+      builder: (context) => ChatScreen(buddyName: args['buddyName']!),
+    );
+  }
+  return null; // Return null if no matching route is found
+}

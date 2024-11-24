@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CarpoolChatScreen extends StatefulWidget {
-  final String buddyName;
+  final String chatRoomId;
 
-  const CarpoolChatScreen({super.key, required this.buddyName});
+  const CarpoolChatScreen({super.key, required this.chatRoomId});
 
   @override
   _CarpoolChatScreenState createState() => _CarpoolChatScreenState();
@@ -26,7 +26,7 @@ class _CarpoolChatScreenState extends State<CarpoolChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat with ${widget.buddyName}'),
+        title: Text('Chat Room: ${widget.chatRoomId}'),
         backgroundColor: Colors.blue,
       ),
       body: Column(

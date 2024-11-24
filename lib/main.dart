@@ -23,16 +23,7 @@ class SafeLinkApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.blue),
       initialRoute: '/login',
       routes: appRoutes, 
-      onGenerateRoute: (settings) {
-        
-        if (settings.name == '/chat' || settings.name == '/carpoolChat') {
-          final args = settings.arguments as Map<String, String>;
-          return MaterialPageRoute(
-            builder: (context) => ChatScreen(buddyName: args['buddyName']!),
-          );
-        }
-        return null; 
-      },
+      onGenerateRoute: onGenerateRoute,
     );
   }
 }

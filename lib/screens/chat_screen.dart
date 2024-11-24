@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
-  final String buddyName; 
+  final String buddyName;
 
-  const ChatScreen({super.key, required this.buddyName});
+  const ChatScreen({Key? key, required this.buddyName}) : super(key: key);
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -11,14 +11,14 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
-  final List<String> _messages = []; 
+  final List<String> _messages = [];
 
   void _sendMessage() {
-    if (_messageController.text.isNotEmpty) {
+    if (_messageController.text.trim().isNotEmpty) {
       setState(() {
-        _messages.add(_messageController.text);
-        _messageController.clear();
+        _messages.add(_messageController.text.trim());
       });
+      _messageController.clear();
     }
   }
 
@@ -31,23 +31,29 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       body: Column(
         children: [
-          // Chat messages
           Expanded(
             child: ListView.builder(
+              reverse: true,
               itemCount: _messages.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                    _messages[index],
-                    textAlign: TextAlign.right, 
+                final message = _messages[index];
+                return Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    padding: const EdgeInsets.all(12.0),
+                    margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Text(message),
                   ),
                 );
               },
             ),
           ),
-          // Input field
           Padding(
-            padding: const EdgeInsets.all(50.0),
+            padding: const EdgeInsets.all(30.0),
             child: Row(
               children: [
                 Expanded(
@@ -61,7 +67,6 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
                 IconButton(
                   icon: const Icon(Icons.send),
-                  color: Colors.blue,
                   onPressed: _sendMessage,
                 ),
               ],
