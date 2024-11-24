@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
+import 'package:firebase_auth/firebase_auth.dart'; 
 import '../services/buddy_service.dart';
 
 class BuddyRequestScreen extends StatefulWidget {
@@ -36,20 +36,20 @@ class _BuddyRequestScreenState extends State<BuddyRequestScreen> {
 
   final BuddyService _buddyService = BuddyService(); // Service instance
 
-  String? _currentUserName; // Holds the current user's name
+  String? _currentUserName; 
 
   @override
   void initState() {
     super.initState();
-    _fetchCurrentUserName(); // Fetch the user's name on initialization
+    _fetchCurrentUserName(); 
   }
 
-  // Fetch and extract the username from the email
+
   void _fetchCurrentUserName() {
     final User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       setState(() {
-        _currentUserName = user.email?.split('@')[0]; // Extract the username
+        _currentUserName = user.email?.split('@')[0]; 
       });
     }
   }
@@ -62,8 +62,8 @@ class _BuddyRequestScreenState extends State<BuddyRequestScreen> {
         _currentUserName != null) {
       try {
         await _buddyService.addBuddyRequest(
-          requesterId: FirebaseAuth.instance.currentUser!.uid, // Firebase UID
-          requesterName: _currentUserName!, // Extracted username
+          requesterId: FirebaseAuth.instance.currentUser!.uid, 
+          requesterName: _currentUserName!, 
           location: _selectedLocation!,
           destination: _selectedDestination!,
           genderPreference: _selectedGender!,
@@ -82,6 +82,33 @@ class _BuddyRequestScreenState extends State<BuddyRequestScreen> {
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please fill in all fields.')),
+      );
+    }
+  }
+
+  // Join a buddy request
+  Future<void> _joinRequest(Map<String, dynamic> request) async {
+    if (_currentUserName == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Unable to retrieve user information.')),
+      );
+      return;
+    }
+
+    try {
+      await _buddyService.joinBuddyRequest(
+        requestId: request['id'],
+        joinerId: FirebaseAuth.instance.currentUser!.uid,
+        joinerName: _currentUserName!,
+        location: request['location'],
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Request sent to ${request['requesterName']}!')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to join the request: $e')),
       );
     }
   }

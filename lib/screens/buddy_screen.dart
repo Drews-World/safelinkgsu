@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import '../services/buddy_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class BuddyScreen extends StatelessWidget {
   const BuddyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final BuddyService buddyService = BuddyService(); // Create a BuddyService instance
+    final BuddyService buddyService = BuddyService(); 
 
     return Scaffold(
       appBar: AppBar(
@@ -59,7 +60,7 @@ class BuddyScreen extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(vertical: 8.0),
                   child: ListTile(
                     leading: CircleAvatar(
-                      child: Text(buddy['requesterName'][0]), // First letter of the name
+                      child: Text(buddy['requesterName'][0]), 
                       backgroundColor: Colors.blueAccent,
                       foregroundColor: Colors.white,
                     ),
@@ -69,19 +70,28 @@ class BuddyScreen extends StatelessWidget {
                     ),
                     isThreeLine: true,
                     trailing: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 109, 192, 99),
-                        foregroundColor: Colors.white,
-                      ),
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Request sent to ${buddy['requesterName']}!'),
-                          ),
-                        );
-                      },
-                      child: const Text('Join'),
-                    ),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color.fromARGB(255, 109, 192, 99),
+                                  foregroundColor: Colors.white,
+                                ),
+                                onPressed: () {
+                                  
+                                  // Perform the join operation
+                                  buddyService.joinBuddyRequest(
+                                    requestId: buddy['id'], // Firestore document ID
+                                    joinerId: FirebaseAuth.instance.currentUser!.uid, // Current user's ID
+                                    joinerName: FirebaseAuth.instance.currentUser!.email!.split('@')[0], // username
+                                    location: buddy['location'], 
+                                  );
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Request sent to ${buddy['requesterName']}!'),
+                                    ),
+                                  );
+                                },
+                                child: const Text('Join'),
+                              ),
                   ),
                 );
               },
