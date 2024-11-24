@@ -21,7 +21,7 @@ final Map<String, WidgetBuilder> appRoutes = {
   '/carpoolRequests': (context) => const CarpoolRequestsScreen(),
 };
 
-// Use onGenerateRoute for dynamic routing.
+
 Route<dynamic>? onGenerateRoute(RouteSettings settings) {
   if (settings.name == '/chatscreen') {
     final args = settings.arguments as Map<String, String>;
@@ -29,5 +29,5 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       builder: (context) => ChatScreen(buddyName: args['buddyName']!),
     );
   }
-  return null; // Return null if no matching route is found
+  return null; 
 }

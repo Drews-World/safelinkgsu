@@ -34,7 +34,7 @@ class _BuddyRequestScreenState extends State<BuddyRequestScreen> {
     'Any',
   ];
 
-  final BuddyService _buddyService = BuddyService(); // Service instance
+  final BuddyService _buddyService = BuddyService(); 
 
   String? _currentUserName; 
 

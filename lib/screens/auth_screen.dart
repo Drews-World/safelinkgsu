@@ -72,7 +72,7 @@ class _AuthScreenState extends State<AuthScreen> {
           Container(
             color: Colors.black.withOpacity(0.2),
           ),
-          // Logo Positioned at the Top Center
+       
           Positioned(
             top: MediaQuery.of(context).size.height * 0.01,
             left: 0,
@@ -85,7 +85,7 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
             ),
           ),
-          // Login Form Positioned at the Bottom
+        
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
