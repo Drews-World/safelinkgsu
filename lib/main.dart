@@ -14,11 +14,11 @@ class SafeLinkApp extends StatelessWidget {
     return MaterialApp(
       title: 'SafeLink GSU',
       theme: ThemeData(primarySwatch: Colors.blue),
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: appRoutes, 
       onGenerateRoute: (settings) {
         
-        if (settings.name == '/chat') {
+        if (settings.name == '/chat' || settings.name == '/carpoolChat') {
           final args = settings.arguments as Map<String, String>;
           return MaterialPageRoute(
             builder: (context) => ChatScreen(buddyName: args['buddyName']!),

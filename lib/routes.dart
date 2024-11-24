@@ -6,6 +6,10 @@ import 'screens/auth_screen.dart';
 import 'screens/buddy_request_screen.dart';
 import 'main_scaffold.dart';
 import 'screens/requests_screen.dart';
+import 'screens/carpool_request_screen.dart';
+import 'screens/carpool_requests_screen.dart';
+import 'screens/carpool_chat_screen.dart';
+
 
 final Map<String, WidgetBuilder> appRoutes = {
   '/': (context) => const MainScaffold(),
@@ -14,4 +18,6 @@ final Map<String, WidgetBuilder> appRoutes = {
   '/login': (context) => const AuthScreen(),
   '/buddyRequest': (context) => const BuddyRequestScreen(),
   '/requests': (context) => const RequestsScreen(),
+  '/carpoolRequest': (context) => const CarpoolRequestScreen(),
+   '/carpoolRequests': (context) => const CarpoolRequestsScreen(),
 };
