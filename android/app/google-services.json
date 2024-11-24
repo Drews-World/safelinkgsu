@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "305628683462",
+    "project_id": "safelinkgsu",
+    "storage_bucket": "safelinkgsu.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305628683462:android:0aba966993f5f19a920bc7",
+        "android_client_info": {
+          "package_name": "com.example.safelinkgsu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn5_zE8Ushi_ULpddExd2G-Wt7q8j6_2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

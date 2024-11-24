@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../services/buddy_service.dart';
 
 class BuddyRequestScreen extends StatefulWidget {
   const BuddyRequestScreen({super.key});
@@ -32,18 +33,32 @@ class _BuddyRequestScreenState extends State<BuddyRequestScreen> {
     'Any',
   ];
 
-  void _submitRequest() {
+  final BuddyService _buddyService = BuddyService(); // Service instance
+
+  // Submit the buddy request
+  Future<void> _submitRequest() async {
     if (_selectedLocation != null &&
         _selectedDestination != null &&
         _selectedGender != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-              'Buddy request submitted! Location: $_selectedLocation, Destination: $_selectedDestination, Gender: $_selectedGender'),
-        ),
-      );
+      try {
+        await _buddyService.addBuddyRequest(
+          requesterId: 'user123', // Replace with the actual user ID
+          requesterName: 'John Doe', // Replace with the actual user name
+          location: _selectedLocation!,
+          destination: _selectedDestination!,
+          genderPreference: _selectedGender!,
+        );
 
-      Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Buddy request submitted successfully!')),
+        );
+
+        Navigator.pop(context);
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to submit buddy request: $e')),
+        );
+      }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please fill in all fields.')),
@@ -142,7 +157,7 @@ class _BuddyRequestScreenState extends State<BuddyRequestScreen> {
             Center(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
+                  backgroundColor: const Color.fromARGB(255, 79, 165, 73),
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
                 onPressed: _submitRequest,
