@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
 import '../services/buddy_service.dart';
 
 class BuddyRequestScreen extends StatefulWidget {
@@ -35,15 +36,34 @@ class _BuddyRequestScreenState extends State<BuddyRequestScreen> {
 
   final BuddyService _buddyService = BuddyService(); // Service instance
 
+  String? _currentUserName; // Holds the current user's name
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchCurrentUserName(); // Fetch the user's name on initialization
+  }
+
+  // Fetch and extract the username from the email
+  void _fetchCurrentUserName() {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setState(() {
+        _currentUserName = user.email?.split('@')[0]; // Extract the username
+      });
+    }
+  }
+
   // Submit the buddy request
   Future<void> _submitRequest() async {
     if (_selectedLocation != null &&
         _selectedDestination != null &&
-        _selectedGender != null) {
+        _selectedGender != null &&
+        _currentUserName != null) {
       try {
         await _buddyService.addBuddyRequest(
-          requesterId: 'user123', // Replace with the actual user ID
-          requesterName: 'John Doe', // Replace with the actual user name
+          requesterId: FirebaseAuth.instance.currentUser!.uid, // Firebase UID
+          requesterName: _currentUserName!, // Extracted username
           location: _selectedLocation!,
           destination: _selectedDestination!,
           genderPreference: _selectedGender!,

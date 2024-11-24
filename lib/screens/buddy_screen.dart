@@ -42,7 +42,7 @@ class BuddyScreen extends StatelessWidget {
           final pendingRequests = snapshot.data ?? [];
 
           if (pendingRequests.isEmpty) {
-            return const Center(child: Text('No pending buddy requests.'));
+            return const Center(child: Text('No buddies :('));
           }
 
           return Padding(

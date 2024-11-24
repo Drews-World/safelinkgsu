@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -8,8 +9,8 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
 
   @override
@@ -19,21 +20,41 @@ class _AuthScreenState extends State<AuthScreen> {
     super.dispose();
   }
 
-  void _login() {
+  Future<void> _login() async {
     setState(() {
       _isLoading = true;
     });
 
-    Future.delayed(const Duration(seconds: 2), () {
+    try {
+      // Authenticate user with Firebase
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+
+      // Navigate to HomeScreen on successful login
+      Navigator.pushReplacementNamed(context, '/');
+    } on FirebaseAuthException catch (e) {
+      String errorMessage;
+      switch (e.code) {
+        case 'user-not-found':
+          errorMessage = 'No user found with this email.';
+          break;
+        case 'wrong-password':
+          errorMessage = 'Incorrect password.';
+          break;
+        default:
+          errorMessage = 'Login failed. Please try again.';
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMessage)),
+      );
+    } finally {
       setState(() {
         _isLoading = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Login Successful!')),
-      );
-
-      Navigator.pushReplacementNamed(context, '/');
-    });
+    }
   }
 
   @override
@@ -49,17 +70,17 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
           // Transparent Overlay
           Container(
-            color: Colors.black.withOpacity(0.2), // adjust darkness over background
+            color: Colors.black.withOpacity(0.2),
           ),
           // Logo Positioned at the Top Center
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.01, 
+            top: MediaQuery.of(context).size.height * 0.01,
             left: 0,
             right: 0,
             child: Center(
               child: Image.asset(
                 'assets/images/safelinklogo.png',
-                height: 400.0, 
+                height: 400.0,
                 fit: BoxFit.contain,
               ),
             ),
@@ -68,7 +89,7 @@ class _AuthScreenState extends State<AuthScreen> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 100.0), // Space from bottom
+              padding: const EdgeInsets.only(bottom: 100.0),
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32.0),
@@ -79,12 +100,12 @@ class _AuthScreenState extends State<AuthScreen> {
                         controller: _emailController,
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: Colors.white.withOpacity(1.0),
+                          fillColor: Colors.white,
                           labelText: 'Email',
                           labelStyle: const TextStyle(color: Colors.black),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
-                            borderSide: BorderSide.none, // Remove border
+                            borderSide: BorderSide.none,
                           ),
                         ),
                       ),
@@ -108,8 +129,8 @@ class _AuthScreenState extends State<AuthScreen> {
                           ? const CircularProgressIndicator()
                           : ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color.fromRGBO(0, 113, 206, 1), // Button background color
-                                foregroundColor: Colors.white, // Button text color
+                                backgroundColor: const Color.fromRGBO(0, 113, 206, 1),
+                                foregroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
