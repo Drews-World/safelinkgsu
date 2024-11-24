@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'routes.dart';
+import 'screens/chat_screen.dart';
 
 void main() {
   runApp(const SafeLinkApp());
@@ -14,7 +15,17 @@ class SafeLinkApp extends StatelessWidget {
       title: 'SafeLink GSU',
       theme: ThemeData(primarySwatch: Colors.blue),
       initialRoute: '/',
-      routes: appRoutes,
+      routes: appRoutes, 
+      onGenerateRoute: (settings) {
+        
+        if (settings.name == '/chat') {
+          final args = settings.arguments as Map<String, String>;
+          return MaterialPageRoute(
+            builder: (context) => ChatScreen(buddyName: args['buddyName']!),
+          );
+        }
+        return null; 
+      },
     );
   }
 }

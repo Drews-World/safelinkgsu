@@ -5,34 +5,77 @@ class BuddyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Dummy list of available buddies
+    final List<Map<String, String>> availableBuddies = [
+      {'name': 'John Doe', 'location': 'Library North', 'gender': 'Male'},
+      {'name': 'Jane Smith', 'location': 'Student Center East', 'gender': 'Female'},
+      {'name': 'Alex Johnson', 'location': 'Piedmont Central', 'gender': 'Any'},
+      {'name': 'Emily Davis', 'location': 'Library South', 'gender': 'Female'},
+      {'name': 'Chris Brown', 'location': 'Adderhold', 'gender': 'Male'},
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Buddy System'),
         backgroundColor: Colors.blue,
+        actions: [
+          // Request Buddy Button in the top-right corner
+          IconButton(
+            icon: const Icon(Icons.add),
+            tooltip: 'Request a Buddy',
+            onPressed: () {
+              Navigator.pushNamed(context, '/buddyRequest');
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.list_alt),
+            tooltip: 'View Requests',
+            onPressed: () {
+              Navigator.pushNamed(context, '/requests');
+            },
+          ),
+        ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Request a Walking Buddy',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.builder(
+          itemCount: availableBuddies.length,
+          itemBuilder: (context, index) {
+            final buddy = availableBuddies[index];
+            return Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
               ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/buddyRequest'); 
-              },
-              child: const Text(
-                'Request Buddy',
-                style: TextStyle(fontSize: 16),
+              elevation: 3,
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              child: ListTile(
+                leading: CircleAvatar(
+                  child: Text(buddy['name']![0]), 
+                  backgroundColor: Colors.blueAccent,
+                  foregroundColor: Colors.white,
+                ),
+                title: Text(buddy['name']!),
+                subtitle: Text(
+                    'Location: ${buddy['location']}\nPreferred Gender: ${buddy['gender']}'),
+                isThreeLine: true,
+                trailing: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent,
+                    foregroundColor: Colors.white,
+                  ),
+                  onPressed: () {
+                    // Placeholder for "Join Buddy" action
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Request sent to ${buddy['name']}!'),
+                      ),
+                    );
+                  },
+                  child: const Text('Join'),
+                ),
               ),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );

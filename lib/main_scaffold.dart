@@ -42,7 +42,7 @@ class _MainScaffoldState extends State<MainScaffold> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.group),
-            label: 'Buddy System',
+            label: 'Buddy Walking',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.directions_car),
