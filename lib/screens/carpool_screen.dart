@@ -113,7 +113,7 @@ class _CarpoolScreenState extends State<CarpoolScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Carpool System'),
+        title: const Text('Carpool'),
         backgroundColor: Colors.blue,
         actions: [
           // Filter Dropdown
@@ -175,7 +175,7 @@ class _CarpoolScreenState extends State<CarpoolScreen> {
                         '${commuter['distance'].toStringAsFixed(1)} miles away • ${commuter['direction']}'),
                       trailing: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
+                          backgroundColor: const Color.fromARGB(255, 109, 192, 99),
                           foregroundColor: Colors.white,
                         ),
                         onPressed: () {

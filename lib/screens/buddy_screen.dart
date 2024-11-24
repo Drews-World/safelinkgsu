@@ -16,10 +16,10 @@ class BuddyScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Buddy System'),
+        title: const Text('Buddy Walking'),
         backgroundColor: Colors.blue,
         actions: [
-          // Request Buddy Button in the top-right corner
+          
           IconButton(
             icon: const Icon(Icons.add),
             tooltip: 'Request a Buddy',
@@ -60,11 +60,11 @@ class BuddyScreen extends StatelessWidget {
                 isThreeLine: true,
                 trailing: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent,
+                    backgroundColor: const Color.fromARGB(255, 109, 192, 99),
                     foregroundColor: Colors.white,
                   ),
                   onPressed: () {
-                    // Placeholder for "Join Buddy" action
+                    
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('Request sent to ${buddy['name']}!'),
