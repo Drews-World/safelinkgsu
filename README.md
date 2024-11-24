@@ -58,15 +58,17 @@ SafeLink GSU is a mobile application designed to enhance campus safety, convenie
 
 Frontend
 
-•	Framework: Flutter for cross-platform support.
+	•	Framework: Flutter for cross-platform support.
 
 Backend
 
-•	Database: Firebase for storing user data and interaction logs.
-•	Real-Time Features: Firebase Realtime Database for GPS tracking and chat functionality.
+	•	Database: Firebase for storing user data and interaction logs.
+
+	•	Real-Time Features: Firebase Realtime Database for GPS tracking and chat functionality.
 
 Security
 
-•	Authentication: GSU Single Sign-On (SSO) for user verification.
-•	Data Encryption: Secure storage and transmission of all user data.
+	•	Authentication: GSU Single Sign-On (SSO) for user verification.
+
+	•	Data Encryption: Secure storage and transmission of all user data.
 
