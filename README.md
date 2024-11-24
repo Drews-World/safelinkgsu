@@ -1,6 +1,7 @@
 ## SafeLink GSU
 
 A Smart Campus Safety and Transportation Solution
+
 Link to Video Demo! https://www.youtube.com/shorts/aIInMRmnmcQ
 
 ## Overview
