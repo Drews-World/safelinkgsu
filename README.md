@@ -10,12 +10,16 @@ SafeLink GSU is a mobile application designed to enhance campus safety, convenie
 
 1. Walking Buddy System
 
-	•	Request a Buddy: Find a fellow student to walk with on campus at night.
+	•	Request a Buddy: Find a fellow student to walk with on campus at night. 
+
 	•	Real-Time GPS Tracking: Track your walking session and share your location with GSU Police for added safety.
+
 	•	Safety Timer: Get reminders to check in during walks. If no response, campus security is alerted automatically.
 
 2. Carpool Finder
 
 	•	Match Carpool Partners: Connect with students commuting from similar locations with shared schedules.
+
 	•	Verified Accounts: Ensure safety by requiring GSU email authentication and optional ID verification.
+	
 	•	Eco-Friendly Rewards: Earn points for carpooling, redeemable for campus perks like discounts or dining credits.
